@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{picture.title}}</h1>
+    <h2>By {{picture.artist}}</h2>
+
+    <img src="{{picture.url}}" alt="{{picture.title}}">
+    <h4>Comments:</h4>
+    <ul>
+        {% for comment in picture.comments.all %}
+        <li>
+            {{comment.message}} -{{comment.name}}
+        </li>    
+        {% endfor %}
+    </ul>
+        <a href="{% url 'picture_display' %}">Back to all pictures</a>
+</body>
+</html>
