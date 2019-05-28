@@ -14,7 +14,6 @@ def root(request):
 
 
 def picture_show(request, picture_id):
-    #picture = Picture.objects.get(pk=picture_id)
     picture = get_object_or_404(Picture, pk=picture_id)
     context = {'picture': picture}
     response = render(request, 'picture.html', context)

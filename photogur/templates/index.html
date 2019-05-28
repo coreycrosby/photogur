@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h3>My pictures</h3>
-    <ul>
+    <ul class="all_photos">
         {% for picture in pictures %}
             <img src="{{picture.url}}">
-            <li><p>Title: {{picture.title}}</p</li>
-            <li><p>Artist: {{picture.artist}}</p></li>
-            <li><p>Comments: {{picture.comments.count}}</p></li>
+            <li><p>{{picture.title}} by {{picture.artist}}</p></li>
         {% endfor %}
     </ul>
 {% endblock %}

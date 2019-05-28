@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Circular, "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    color: grey;
+}
+
+header {
+    color: grey;
+    font-size: 30px;
+    font-weight: bold;
+    border-top: 2px solid grey;
+    border-bottom: 2px solid grey;
+    margin: 20px;
+    padding: 20px;
+}
+
+.all_photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+    padding: 0;
+}
+
+li {
+    margin: 0 auto;
+    border: 2px solid;
+    border-color: lightgray;
+    padding: 1em;
+}
+
+li > img {
+    width: 100%
+}
+
+
+footer {
+    display: block;
+    color: white;
+    background-color: #333;
+    text-align: center;
+    padding: 10px;
+}
