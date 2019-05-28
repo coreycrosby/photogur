@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>My pictures</h1>
+{% extends 'base.html' %}
+{% block content %}
+    <h3>My pictures</h3>
     <ul>
         {% for picture in pictures %}
-        <li>
             <img src="{{picture.url}}">
-            <p>Title: {{picture.title}}</p>
-            <p>Artist: {{picture.artist}}</p>
-            <p>Comments: {{picture.comments.count}}</p>
-        </li>
+            <li><p>Title: {{picture.title}}</p</li>
+            <li><p>Artist: {{picture.artist}}</p></li>
+            <li><p>Comments: {{picture.comments.count}}</p></li>
         {% endfor %}
     </ul>
-</body>
-
-</html>
+{% endblock %}
