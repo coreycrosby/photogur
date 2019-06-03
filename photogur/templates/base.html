@@ -1,5 +1,5 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,14 @@
 <body>
     <header>
         <h1>Photogur</h1>
+        <br>
+        <form action="{% url 'picture_search' %}" method="get">
+            <label for="picture-search">
+                <span>Search:</span>
+                <input type="search" id="picture-search" name="query" value="{{ query }}"/>
+            </label>        
+            <input type="submit" value="Search"/>
+        </form>
     </header>
 
     {% block content %}
