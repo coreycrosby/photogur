@@ -2,8 +2,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from photogur.models import Picture, Comment
 from django.views.decorators.http import require_http_methods
-from photogur.forms import LoginForm
+from photogur.forms import LoginForm, PictureForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 
 def pictures(request):
@@ -13,7 +14,7 @@ def pictures(request):
 
 
 def root(request):
-    return HttpResponseRedirect('admin')
+    return HttpResponseRedirect('pictures')
 
 
 def picture_show(request, picture_id):
@@ -58,4 +59,33 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/pictures')
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return HttpResponseRedirect('/pictures')
+    else:
+        form = UserCreationForm
+    html_response = render(request, 'signup.html', {'form': form})
+    return HttpResponse(html_response)
+
+
+def add(request):
+    if request.method == 'POST':
+        picture_form = PictureForm(request.POST)
+        if picture_form.is_valid():
+            new_pic = picture_form.save(commit=False)
+            new_pic.user = request.user
+            picture_form.save()
+            return redirect('/pictures', id=new_pic.id)
+    else:
+        picture_form = PictureForm()
+        return render(request, 'add.html', {'picture_form': picture_form})
 
