@@ -7,14 +7,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 
 
+def root(request):
+    return HttpResponseRedirect('pictures')
+
+
 def pictures(request):
     context = {'pictures': Picture.objects.all()}
     response = render(request, 'index.html', context)
     return HttpResponse(response)
-
-
-def root(request):
-    return HttpResponseRedirect('pictures')
 
 
 def picture_show(request, picture_id):
@@ -22,6 +22,19 @@ def picture_show(request, picture_id):
     context = {'picture': picture}
     response = render(request, 'picture.html', context)
     return HttpResponse(response)
+
+
+def create_picture(request):
+    if request.method == 'POST':
+        picture_form = PictureForm(request.POST)
+        if picture_form.is_valid():
+            new_pic = picture_form.save(commit=False)
+            new_pic.user = request.user
+            picture_form.save()
+            return redirect('/pictures', id=new_pic.id)
+    else:
+        picture_form = PictureForm()
+        return render(request, 'create_picture.html', {'picture_form': picture_form})
 
 
 def picture_search(request):
@@ -33,7 +46,14 @@ def picture_search(request):
 
 @require_http_methods(['POST'])
 def create_comment(request):
-    pass
+    picture = Picture.objects.get(id=request.POST['picture_id'])
+
+    Comment.objects.create(
+        picture=picture,
+        name=request.POST['name'],
+        message=request.POST['message']
+    )
+    return redirect('/pictures', id=picture.id)
 
 
 def login_view(request):
@@ -76,16 +96,4 @@ def signup(request):
     html_response = render(request, 'signup.html', {'form': form})
     return HttpResponse(html_response)
 
-
-def add(request):
-    if request.method == 'POST':
-        picture_form = PictureForm(request.POST)
-        if picture_form.is_valid():
-            new_pic = picture_form.save(commit=False)
-            new_pic.user = request.user
-            picture_form.save()
-            return redirect('/pictures', id=new_pic.id)
-    else:
-        picture_form = PictureForm()
-        return render(request, 'add.html', {'picture_form': picture_form})
 

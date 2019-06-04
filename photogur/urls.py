@@ -15,17 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from photogur.views import root, pictures, picture_show, picture_search, create_comment, login_view, logout_view, signup, add
+from photogur.views import *
 
 urlpatterns = [
     path('', root),
     path('admin/', admin.site.urls),
     path('pictures/', pictures, name='picture_display'),
     path('pictures/<int:picture_id>', picture_show, name='picture_show'),
-    path('search', picture_search, name='picture_search'),
+    path('pictures/new', create_picture, name="create_picture"),
     path('comments/new', create_comment, name='create_comment'),
+    path('search', picture_search, name='picture_search'),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout"),
     path('signup/', signup, name="signup"),
-    path('add/', add, name="add"),
 ]

@@ -7,11 +7,14 @@
     <form action="{% url 'create_comment' %}" method="post">
             {% csrf_token %}
             <div class ="comment">
-                <input type="hidden" name="picture" value="{{ picture.pk }}">
+                <input type="hidden" name="picture_id" value="{{ picture.pk }}">
+
                 <label for="name">Name:</label>
-                <input type="text" name="name" id="name" placeholder="e.g. John Smith" class="comment_box">
+                <input type="text" name="name" placeholder="e.g. John Smith" class="comment_box">
+
                 <label for="message">Comment:</label>
-                <textarea name="message" id="user_message" cols="30" rows="1" placeholder="Write a comment...." class="comment_box"></textarea>
+                <textarea name="message" cols="30" rows="1" placeholder="Write a comment...." class="comment_box"></textarea>
+
                 <button type="submit">Post</button> 
     <br>
     <br>

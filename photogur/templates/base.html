@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <h1>Photogur</h1>
+        <a href= "{% url 'picture_display' %}"><h1>Photogur</h1></a> 
         <br>
         <form action="{% url 'picture_search' %}" method="get">
             <label for="picture-search">
@@ -22,9 +22,11 @@
         </form>
     </header>
     {% if request.user.is_authenticated %} 
+        <a href="/pictures/new">Add Picture</a> 
         <a href="/logout/">Log Out</a>
     {% else %}
-        <a href="/login/">Log In</a>
+    <a href="/login/">Log In</a>
+    <a href="/signup/">Sign Up</a>
     {% endif %}
     <br>
     <br>
